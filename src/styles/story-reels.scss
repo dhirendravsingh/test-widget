@@ -1,0 +1,911 @@
+@import "font";
+
+$fontFamily: "Manrope";
+$primary: #cccccc;
+$black: #000000;
+$white: #ffffff;
+$gray300: #939393;
+$gray600: #9a9a9a;
+$gray800: #2e2b2b;
+$fontSize: "";
+
+#instasell-live-story-reels,
+.ins-story-reels-container {
+  display: block !important;
+  visibility: visible !important;
+}
+
+
+@media (min-width: 767px) {
+  #instasell-live-story-reels,
+  .ins-story-reels-container {
+    display: block !important;
+    visibility: visible !important;
+  }
+}
+
+.ins-story-progress-container {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 2;
+  display: flex;
+  gap: 4px;
+}
+
+.ins-story-progress-bar-wrapper {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.ins-story-progress-bar {
+  height: 100%;
+  background-color: #ffffff;
+  transition: width 0.1s linear;
+}
+
+// story-skeleton.scss
+.ins-story-skeleton-feed {
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+  padding: 1.5em 0.25em;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ins-story-skeleton-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+
+    .ins-story-skeleton-circle {
+      position: relative;
+      width: 70px;
+      height: 70px;
+
+      .ins-story-skeleton-gradient-ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        padding: 2px; // Border thickness
+        background: linear-gradient(
+          -90deg,
+          #efefef 0%,
+          #fcfcfc 50%,
+          #efefef 100%
+        );
+        background-size: 400% 400%;
+        animation: pulse 1.2s ease-in-out infinite;
+
+        .ins-story-skeleton-inner-circle {
+          width: 100%;
+          height: 100%;
+          background: white;
+          border-radius: 50%;
+          background: linear-gradient(
+            -90deg,
+            #efefef 0%,
+            #fcfcfc 50%,
+            #efefef 100%
+          );
+          background-size: 400% 400%;
+          animation: pulse 1.2s ease-in-out infinite;
+        }
+      }
+    }
+
+    .ins-story-skeleton-text {
+      width: 60px;
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(
+        -90deg,
+        #efefef 0%,
+        #fcfcfc 50%,
+        #efefef 100%
+      );
+      background-size: 400% 400%;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+  }
+}
+
+.ins-story-feed {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  width: 100%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ins-story-item {
+    position: relative;
+    z-index: 1;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+
+    &:hover {
+      z-index: 2;
+    }
+
+    .ins-story-circle-wrapper {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3px;
+      border-radius: 50%;
+      background: linear-gradient(to bottom, #a12929 0%, #d0cd27 100%);
+      pointer-events: none;
+
+      .ins-story-image,
+      .ins-story-video {
+        pointer-events: none; // Let clicks pass through to parent
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .ins-story-circle-wrapper {
+        width: 80px;
+        height: 80px;
+      }
+    }
+
+    .ins-story-title {
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 16.34px;
+      color: #000000;
+      width: 90px;
+      text-align: center;
+      padding: 9px 0;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+      word-wrap: break-word;
+
+      @media (max-width: 640px) {
+        width: 70px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.ins-story-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.ins-story-feed-container {
+  position: relative;
+  min-width: "480px";
+  margin: "0 auto";
+}
+
+.ins-story-modal {
+  z-index: 1000000;
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: calc(100vh - 80px);
+  max-height: 700px;
+  background: black;
+  border-radius: 12px;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+    z-index: 9999;
+  }
+}
+
+.ins-story-modal-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ins-story-progress-bars {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  z-index: 2;
+  display: flex;
+  gap: 4px;
+}
+
+.progress-bar-container {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: white;
+  transition: width 0.1s linear;
+
+  &.completed {
+    width: 100%;
+  }
+
+  &.active {
+    transition: width linear;
+  }
+}
+
+.story-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 12px;
+  z-index: 2;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+
+  .close-icon {
+    width: 24px;
+    height: 24px;
+    color: white;
+  }
+}
+
+.story-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ins-reel-modal-player-pause-icon,
+.ins-reel-modal-player-play-icon {
+  height: 1.5em;
+  width: 1.5em;
+  color: white;
+}
+
+.ins-story-close-icon {
+  height: 1.5em;
+  width: 1.5em;
+  color: white;
+}
+
+.ins-story-arrow {
+  height: 1.5em;
+  width: 1.5em;
+  color: white;
+}
+
+.ins-story-left {
+  transform: rotate(90deg);
+}
+
+.ins-story-right {
+  transform: rotate(270deg);
+}
+
+.ins-reel-player-product-panel-2 {
+  width: 100%;
+  position: absolute;
+  bottom: 2em;
+  left: 0;
+  overflow-x: auto;
+  display: flex !important;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ins-product-panel-item {
+    width: 200px;
+    padding: 16px;
+    background: rgba(78, 78, 78, 0.7);
+    min-width: 280px;
+    border-radius: 8px;
+    cursor: pointer;
+    gap: 12px;
+
+    .ins-product-panel-item-thumbnail {
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      border-radius: 4px;
+      background-size: cover;
+      background-position: center center;
+      border: 2px solid #ffffff;
+      aspect-ratio: 1/1;
+    }
+
+    .ins-product-panel-item-details {
+      flex: 1;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ins-product-panel-item-title {
+      font-weight: 500;
+      font-size: 16px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      color: #ffffff;
+      margin: 0;
+      max-width: 170px;
+    }
+
+    .ins-product-panel-item-price {
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .ins-product-panel-item-buy-now {
+      background: #ffffff;
+      color: #000000;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .ins-product-panel-item-strikeoff-price {
+      text-decoration: line-through;
+      margin-left: 8px;
+      font-weight: normal;
+      opacity: 0.8;
+    }
+    .ins-product-panel-item-discount-badge {
+      background-color: #e53e3e;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 8px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+  }
+}
+
+.ins-product-details-modal-overlay__show {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  z-index: 1122;
+  height: 100%;
+  width: 100%;
+  background-color: #00000077;
+  opacity: 0.5;
+
+  &.ins-product-details-modal-overlay__is-desktop {
+    position: absolute;
+  }
+}
+
+.ins-product-details-modal-overlay__hidden {
+  display: none;
+}
+
+.ins-product-details-modal {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  height: 80%;
+  left: 0;
+  background-color: #ffffff;
+  border-radius: 1.5em 1.5em 0 0;
+  z-index: 1122;
+  // transform: translateY(0);
+  transform: translate3d(0, 100%, 0);
+  // transform: translateZ(0);
+  // -webkit-transform: translateZ(0);
+  transition: all ease-in 0.5s;
+  // translate
+  &.ins-product-details-modal__is-desktop {
+    position: absolute;
+  }
+}
+
+.ins-product-details-modal__show {
+  transform: translateY(0);
+}
+
+.ins-product-details-modal__hidden {
+  transform: translateY(100%);
+  // bottom: -100%;
+}
+
+.ins-product-details-modal-close-button__show {
+  position: absolute;
+  right: 50%;
+  display: flex;
+  height: 5em;
+  width: 5em;
+  z-index: 1;
+  transform: translateX(50%);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: -5em;
+  cursor: pointer;
+}
+
+.ins-product-details-modal-close-button__hidden {
+  display: none;
+}
+
+// Product Details Section
+.ins-product-details-section {
+  position: absolute;
+  width: 100%;
+  padding: 0;
+  height: 100%;
+
+  .ins-product-details-heading {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    color: #000000;
+    padding: 1em 0;
+  }
+
+  .ins-product-details-container {
+    // padding: 1.5em 1em;
+    height: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+    color: $black;
+    scrollbar-width: 0;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .ins-product-details-header {
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-start;
+    color: $black;
+    padding: 24px;
+    background: #f1f1f1;
+    border-radius: 1.5em 1.5em 0 0;
+    overflow-x: auto;
+    display: flex;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+  }
+
+  .ins-product-details-header::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ins-product-details-info {
+    // margin-left: 1em;
+    padding: 0px 20px;
+    margin-top: 20px;
+  }
+
+  .ins-product-details-image {
+    display: inline-block;
+    height: 12em;
+    aspect-ratio: 1/1;
+    border-radius: 0.375em;
+    background-color: #f7f8f1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center 30%;
+
+    &:last-child {
+      margin-right: calc((100% - 340px) / 4);
+    }
+  }
+
+  .ins-product-details-name {
+    font-size: 20px;
+    color: #4a4a4a;
+    font-weight: 600;
+  }
+
+  .ins-product-details-price {
+    color: $gray800;
+    font-size: 15px;
+  }
+
+  .ins-product-details-strikeoff-price {
+    margin-left: 0.5em;
+    text-decoration: line-through;
+  }
+  .ins-product-details-discount-badge {
+    background-color: #e53e3e;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 8px;
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .ins-product-details-description-heading {
+    color: $black;
+    font-weight: bold;
+    margin-top: 1.5em;
+  }
+
+  .ins-product-details-description-container {
+    margin-top: 1.5em;
+    font-size: 0.85em;
+    color: #4a4a4a;
+    padding: 0 20px;
+    padding-bottom: 100px;
+  }
+
+  .ins-product-details-description {
+    color: $gray600;
+    font-size: 0.875em;
+    margin-top: 1em;
+  }
+
+  .ins-product-details-buy-now-button {
+    width: 100%;
+    background: $black;
+    color: $white;
+    padding: 0.75em 1.5em;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    border-radius: 4px;
+  }
+
+  .ins-product-details-product-page-button {
+    width: 100%;
+    background: $white;
+    color: $black;
+    padding: 0.75em 1.5em;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    border-radius: 4px;
+  }
+
+  .ins-product-details-buy-now-success-message {
+    position: absolute;
+    right: 0;
+    left: 0;
+    animation: buy-now-text 2s;
+  }
+
+  .ins-product-details-checkout-button {
+    width: 100%;
+    background: $white;
+    color: $black;
+    border: 1px solid $black;
+    margin: 0.5em 0;
+    padding: 0.75em 1.5em;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .ins-product-details-variants-list {
+    display: flex;
+    padding-left: 1em;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: 0;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .ins-product-details-variants-item {
+    border: 1px solid lightgrey;
+    background: transparent;
+    border-radius: 0.25em;
+    padding: 0.5em 1.2em;
+    min-width: fit-content;
+    color: black;
+    font-size: 14px;
+  }
+  .ins-product-details-variants-item + .ins-product-details-variants-item {
+    margin-left: 0.5em;
+  }
+  .ins-product-details-variants-item.ins-product-details-variants-item__active {
+    border: 1px solid black;
+    background: black;
+    color: white;
+  }
+
+  .ins-product-details-button-container {
+    padding: 20px;
+    background-color: #f1f1f1;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ins-story-modal {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: -135% 0%;
+  }
+}
+
+// Highlight Feed Styles
+.ins-highlight-feed {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  width: 100%;
+  padding: 1em 0;
+  gap: 0.5em;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ins-highlight-item {
+    position: relative;
+    z-index: 1;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    &:hover {
+      z-index: 2;
+    }
+
+    .ins-highlight-circle-wrapper {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3px;
+      border-radius: 50%;
+      background: linear-gradient(to bottom, #a12929 0%, #d0cd27 100%);
+      pointer-events: none;
+
+      .ins-highlight-image {
+        pointer-events: none;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block !important;
+        border: 2px solid $white;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .ins-highlight-circle-wrapper {
+        width: 70px;
+        height: 70px;
+      }
+    }
+
+    .ins-highlight-title {
+      font-family: "Open Sans", sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.2;
+      color: $black;
+      width: 90px;
+      text-align: center;
+      white-space: normal;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+
+      @media (max-width: 640px) {
+        width: 70px;
+        font-size: 11px;
+      }
+    }
+  }
+}
+
+// Highlight Skeleton Styles (for loading state)
+.ins-highlight-skeleton-feed {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1em;
+  padding: 1.5em 0.25em;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ins-highlight-skeleton-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+    flex-shrink: 0;
+
+    .ins-highlight-skeleton-circle {
+      position: relative;
+      width: 70px;
+      height: 70px;
+
+      .ins-highlight-skeleton-gradient-ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        padding: 2px;
+        background: linear-gradient(
+          -90deg,
+          #efefef 0%,
+          #fcfcfc 50%,
+          #efefef 100%
+        );
+        background-size: 400% 400%;
+        animation: pulse 1.2s ease-in-out infinite;
+
+        .ins-highlight-skeleton-inner-circle {
+          width: 100%;
+          height: 100%;
+          background: white;
+          border-radius: 50%;
+          background: linear-gradient(
+            -90deg,
+            #efefef 0%,
+            #fcfcfc 50%,
+            #efefef 100%
+          );
+          background-size: 400% 400%;
+          animation: pulse 1.2s ease-in-out infinite;
+        }
+      }
+    }
+
+    .ins-highlight-skeleton-text {
+      width: 60px;
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(
+        -90deg,
+        #efefef 0%,
+        #fcfcfc 50%,
+        #efefef 100%
+      );
+      background-size: 400% 400%;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+  }
+}
+
+// Animation for skeleton loading
+@keyframes pulse {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: -135% 0%;
+  }
+}
+
+// Custom CTA Button Styles for Story Reels
+.ins-custom-cta-button {
+  background: #ffffff;
+  color: #000000;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid #d1d5db;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 250px;
+  max-width: 300px;
+
+  &:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+  }
+
+  &:active {
+    background: #f3f4f6;
+  }
+
+  .ins-custom-cta-text {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
+  }
+}
+
+.ins-product-panel-item-title,
+.ins-product-details-name {
+  text-transform: capitalize;
+}

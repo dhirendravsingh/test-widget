@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Videos</title>
+  </head>
+
+  <body>
+    <div id="instasell-live-short-videos"></div>
+    <div id="instasell-live-story-reels" class="page-width"></div>
+    <div id="instasell-live-video-pop"></div> 
+    <div id="instasell-live-video-banner"></div> 
+    <script>
+      window.__INSTASELL_LIVE_CONFIG__ = {
+        element: document.querySelector("#instasell-live-embed"),
+        addToCart: (variantId, via, handle) => {
+          sessionStorage.setItem("__INS_EVENT_LOCK__", "1");
+          fetch(window.Shopify.routes.root + "products/" + handle + ".js", {
+            method: "GET",
+          })
+            .then((res) => res.json())
+            .catch((error) => console.error(error));
+          let formData = {
+            items: [
+              {
+                id: variantId,
+                quantity: 1,
+              },
+            ],
+          };
+          return fetch(window.Shopify.routes.root + "cart/add.json", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          })
+            .then((res) => res.json())
+            .catch((error) => console.log(error))
+            .finally(() => {
+              setTimeout(
+                () => sessionStorage.removeItem("__INS_EVENT_LOCK__"),
+                1000
+              );
+            });
+        },
+        getCurrentCart: () => {
+          return fetch(window.Shopify.routes.root + "cart.json", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .catch((error) => console.log(error));
+        },
+        getCurrentCartId: () => {
+          return fetch(window.Shopify.routes.root + "cart.json", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .then((res) => res.token)
+            .catch((error) => console.log(error));
+        },
+        getCurrencyCode: () => {
+          return "$";
+        },
+        getProductDetailsBySlug: (slug) => {
+          return fetch(
+            window.Shopify.routes.root + "products/" + slug + ".js",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
+            .then((res) => res.json())
+            .then((res) => res.token)
+            .catch((error) => console.log(error));
+        },
+        redirectToCart: () => {
+          window.location.href = "/cart";
+        },
+        getPageType: () => {
+          return window.__st && window.__st.p;
+        },
+        getActiveProductPageId: () => {
+          return window.__st && window.__st.p === "product" && window.__st.rid;
+        },
+        showFeedOnHomePageOnly: false,
+      };
+    </script>
+    <script>
+      window.__INSTASELL_STORY_CONFIG__ = {
+        element: document.querySelector("#instasell-live-embed"),
+        addToCart: (variantId, via, handle) => {
+          sessionStorage.setItem("__INS_EVENT_LOCK__", "1");
+          fetch(window.Shopify.routes.root + "products/" + handle + ".js", {
+            method: "GET",
+          })
+            .then((res) => res.json())
+            .catch((error) => console.error(error));
+          let formData = {
+            items: [
+              {
+                id: variantId,
+                quantity: 1,
+              },
+            ],
+          };
+          return fetch(window.Shopify.routes.root + "cart/add.json", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          })
+            .then((res) => res.json())
+            .catch((error) => console.log(error))
+            .finally(() => {
+              setTimeout(
+                () => sessionStorage.removeItem("__INS_EVENT_LOCK__"),
+                1000
+              );
+            });
+        },
+        getCurrentCart: () => {
+          return fetch(window.Shopify.routes.root + "cart.json", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .catch((error) => console.log(error));
+        },
+        getCurrentCartId: () => {
+          return fetch(window.Shopify.routes.root + "cart.json", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .then((res) => res.token)
+            .catch((error) => console.log(error));
+        },
+        getCurrencyCode: () => {
+          return "$";
+        },
+        getProductDetailsBySlug: (slug) => {
+          return fetch(
+            window.Shopify.routes.root + "products/" + slug + ".js",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
+            .then((res) => res.json())
+            .then((res) => res.token)
+            .catch((error) => console.log(error));
+        },
+        redirectToCart: () => {
+          window.location.href = "/cart";
+        },
+        getPageType: () => {
+          return window.__st && window.__st.p;
+        },
+        getActiveProductPageId: () => {
+          return window.__st && window.__st.p === "product" && window.__st.rid;
+        },
+        showFeedOnHomePageOnly: false,
+      };
+    </script>
+
+    <script>
+      window.__INSTASELL_VIDEO_POP_CONFIG__ = {
+        element: document.querySelector("#instasell-live-embed"),
+        addToCart: (variantId, via, handle) => {
+          sessionStorage.setItem("__INS_EVENT_LOCK__", "1");
+          fetch(
+            "https://utkarsh-s.myshopify.com/" + "products/" + handle + ".js",
+            {
+              method: "GET",
+            }
+          )
+            .then((res) => res.json())
+            .catch((error) => console.error(error));
+          let formData = {
+            items: [
+              {
+                id: variantId,
+                quantity: 1,
+              },
+            ],
+          };
+          return fetch("https://utkarsh-s.myshopify.com/" + "cart/add.json", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          })
+            .then((res) => res.json())
+            .catch((error) => console.log(error))
+            .finally(() => {
+              setTimeout(
+                () => sessionStorage.removeItem("__INS_EVENT_LOCK__"),
+                1000
+              );
+            });
+        },
+        getCurrentCart: () => {
+          return fetch(window.Shopify.routes.root + "cart.json", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .catch((error) => console.log(error));
+        },
+        getCurrentCartId: () => {
+          return fetch(window.Shopify.routes.root + "cart.json", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .then((res) => res.token)
+            .catch((error) => console.log(error));
+        },
+        getCurrencyCode: () => {
+          return "$";
+        },
+        getProductDetailsBySlug: (slug) => {
+          return fetch(
+            window.Shopify.routes.root + "products/" + slug + ".js",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
+            .then((res) => res.json())
+            .then((res) => res.token)
+            .catch((error) => console.log(error));
+        },
+        redirectToCart: () => {
+          window.location.href = "/cart";
+        },
+        getPageType: () => {
+          return window.__st && window.__st.p;
+        },
+        getActiveProductPageId: () => {
+          return window.__st && window.__st.p === "product" && window.__st.rid;
+        },
+        showFeedOnHomePageOnly: false,
+        getShopDomain: () => {
+          return "utkarsh-s.myshopify.com";
+        },
+      };
+    </script>
+
+    <script type="module" src="/src/index.tsx"></script>
+    <script type="module" src="/src/banner-index.tsx"></script>
+    <script type="module" src="/src/story-index.tsx"></script>
+    <script type="module" src="/src/video-pop-index.tsx"></script>
+    <style>
+      #app {
+        padding: 0 0 1000px;
+      }
+    </style>
+  </body>
+</html>

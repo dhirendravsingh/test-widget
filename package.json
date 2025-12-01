@@ -1,0 +1,33 @@
+{
+  "name": "shopping-reels",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --port 3003",
+    "prebuild": "node -e \"const fs=require('fs'),path=require('path');const files=['node_modules/.cache','tsconfig.tsbuildinfo','tsconfig.node.tsbuildinfo','.tsbuildinfo'];const dirs=['node_modules/.vite','node_modules/.cache'];dirs.forEach(d=>{try{fs.rmSync(d,{recursive:true,force:true})}catch(e){}});files.forEach(f=>{try{fs.unlinkSync(f)}catch(e){}});\" || true",
+    "build": "vite build",
+    "generate": "buf generate ../main-api && buf generate ../chat-api",
+    "deploy:dev": "yarn generate && yarn run build && node dev-deploy.js",
+    "deploy": "yarn generate && yarn run build && node deploy.js",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@bufbuild/protobuf": "^1.6.0",
+    "@connectrpc/connect": "^1.2.0",
+    "@connectrpc/connect-web": "^1.2.0",
+    "dompurify": "^3.2.6",
+    "preact": "^10.11.2",
+    "react-in-viewport": "^1.0.0-alpha.29",
+    "sass": "^1.57.1"
+  },
+  "devDependencies": {
+    "@bufbuild/buf": "^1.28.1",
+    "@bufbuild/protoc-gen-es": "^1.6.0",
+    "@connectrpc/protoc-gen-connect-es": "^1.2.0",
+    "@preact/preset-vite": "^2.4.0",
+    "@types/node": "^18.11.18",
+    "aws-sdk": "^2.1295.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.2.3"
+  }
+}
