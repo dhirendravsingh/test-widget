@@ -6,7 +6,7 @@ export const MAIN_API_BASE_URL = process.env.MAIN_API_BASE_URL
   ? process.env.MAIN_API_BASE_URL
   : isDev
   ? "https://185b-27-7-18-129.ngrok-free.app"
-  : "https://cdself-ip-27-7-22-198.tunnelmole.net";
+  : "https://6anpja-ip-27-7-22-198.tunnelmole.net";
 
 export const CHAT_API_BASE_URL = process.env.CHAT_API_BASE_URL
   ? process.env.CHAT_API_BASE_URL
