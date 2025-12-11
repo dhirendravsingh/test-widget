@@ -14,7 +14,7 @@ export function App({storyName}: { storyName?: string }) {
     localStorage?.getItem("__IS_STOK") ?? undefined
   );
   const componentRef = useRef<HTMLDivElement>(null);
-  const [isNearViewport, setIsNearViewport] = useState(false);
+  const [isNearViewport, setIsNearViewport] = useState(true);
   const hasTrackedImpression = useRef(false);
 
   useEffect(() => {
